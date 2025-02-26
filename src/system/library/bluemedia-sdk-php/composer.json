@@ -1,0 +1,12 @@
+{
+    "name": "bluemedia/php-sdk",
+    "require": {
+        "php": ">=5.6",
+        "guzzlehttp/guzzle": "6.*",
+        "psr/log": "1.1.*",
+        "monolog/monolog" : "1.*"
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}

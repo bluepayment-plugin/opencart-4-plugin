@@ -1,0 +1,55 @@
+.introduction {
+
+}
+.introduction h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: #4c4d5a;
+    display: inline-block;
+    margin: 15px 0;
+    text-shadow: 0 1px #fff;
+}
+.introduction--row {
+    display: flex;
+}
+.introduction--col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.introduction--num {
+    border: 1px solid #199BFA;
+    border-radius: 100px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.6rem;
+}
+.introduction--content {
+    padding: 0 5px;
+}
+.introduction--content__padding {
+    padding: 0 15px;
+}
+
+.introduction--learn-more {
+    margin: 30px 0 15px 0;
+}
+.introduction--check {
+    background: url('../../image/bluepayment/check.svg') no-repeat;
+    height: 12px;
+    width: 19px;
+    margin-right: 5px;
+}
+.introduction--logo_container {
+    flex-basis: 200px;
+    height: 50px;
+    align-items: center;
+    display: flex;
+}
+.introduction--logo {
+    max-width: 150px;
+}
