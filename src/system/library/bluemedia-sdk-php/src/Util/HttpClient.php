@@ -44,4 +44,27 @@ class HttpClient
 
         return $this->guzzleClient->post($url, $options);
     }
+
+    /**
+     * Perform POST request.
+     *
+     * @param string $url
+     * @param array $headers
+     * @param null $data
+     * @param array $options
+     *
+     * @return ResponseInterface
+     */
+    public function postJson(string $url, array $headers = [], $data = null, array $options = []): ResponseInterface
+    {
+        $options = array_merge(
+            $options,
+            [
+                GuzzleHttp\RequestOptions::HEADERS => $headers,
+                GuzzleHttp\RequestOptions::JSON => $data,
+            ]
+        );
+
+        return $this->guzzleClient->post($url, $options);
+    }
 }

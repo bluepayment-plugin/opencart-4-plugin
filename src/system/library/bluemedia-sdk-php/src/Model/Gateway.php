@@ -154,11 +154,35 @@ class Gateway extends AbstractModel
     private $iconUrl = '';
 
     /**
+     * Status of gateway.
+     *
+     * @var string
+     */
+    private $state = '';
+
+    /**
      * Status date.
      *
      * @var DateTime
      */
-    private $statusDate;
+    private $stateDate;
+
+    /**
+     * @var string
+     */
+    private $gatewayDescription;
+
+    /**
+     * Is balance allowed.
+     *
+     * @var boolean
+     */
+    private $inBalanceAllowed;
+
+    /**
+     * @var array
+     */
+    private $currencyList = [];
 
     /**
      * Returns gateway id.
@@ -281,27 +305,120 @@ class Gateway extends AbstractModel
     }
 
     /**
+     * Get gateway current state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set gateway current state
+     *
+     * @param  string  $state
+     * @return $this
+     */
+    public function setState(string $state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
      * Returns status date.
      *
      * @return DateTime | null
      */
-    public function getStatusDate()
+    public function getStateDate()
     {
-        return $this->statusDate;
+        return $this->stateDate;
     }
 
     /**
      * Sets status date.
      *
-     * @param DateTime $statusDate
+     * @param DateTime $stateDate
      *
      * @return $this
      */
-    public function setStatusDate(DateTime $statusDate)
+    public function setStateDate(DateTime $stateDate)
     {
-        $this->statusDate = $statusDate;
+        $this->stateDate = $stateDate;
 
         return $this;
+    }
+
+    /**
+     * Set gateway description
+     *
+     * @param  string  $gatewayDescription
+     * @return $this
+     */
+    public function setGatewayDescription(string $gatewayDescription)
+    {
+        $this->gatewayDescription = $gatewayDescription;
+
+        return $this;
+    }
+
+    /**
+     * Returns gateway description.
+     *
+     * @return string
+     */
+    public function getGatewayDescription()
+    {
+        return $this->gatewayDescription;
+    }
+
+
+    /**
+     * Set gateway description
+     *
+     * @param  boolean  $inBalanceAllowed
+     * @return $this
+     */
+    public function setInBalanceAllowed(bool $inBalanceAllowed)
+    {
+        $this->inBalanceAllowed = $inBalanceAllowed;
+
+        return $this;
+    }
+
+    /**
+     * Returns in balance allowed.
+     *
+     * @return bool
+     */
+    public function getInBalanceAllowed()
+    {
+        return $this->inBalanceAllowed;
+    }
+
+    /**
+     * Add currency
+     *
+     * @param  Currency  $currency
+     * @return $this
+     */
+    public function addCurrency(Currency $currency)
+    {
+        $this->currencyList[] = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get available currency list.
+     *
+     * @return array
+     */
+    public function getCurrencies()
+    {
+        return $this->currencyList;
     }
 
     /**

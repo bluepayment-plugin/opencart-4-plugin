@@ -1,23 +1,25 @@
 <?php
 
+namespace Opencart\Admin\Model\Extension\BluePayment\Payment;
+
 class BluePayment extends \Opencart\System\Engine\Model
 {
-    public const VERSION = '1.0.5';
+    public const VERSION = '1.0.8';
 
     public const CONFIG_CODE = 'payment_bluepayment';
     public const VERSION_CONFIG_KEY = 'payment_bluepayment_version';
 
-    public function install()
+    public function install(): void
     {
         $this->load->model('setting/setting');
 
         $this->model_setting_setting->editSetting(self::CONFIG_CODE, [
             'payment_bluepayment_status' => 0,
             'payment_bluepayment_test_mode' => 1,
-            'payment_bluepayment_currency' => null,
-            'payment_bluepayment_status_pending' => ControllerExtensionPaymentBluepayment::STATUS_PENDING,
-            'payment_bluepayment_status_failed' => ControllerExtensionPaymentBluepayment::STATUS_FAILED,
-            'payment_bluepayment_status_success' => ControllerExtensionPaymentBluepayment::STATUS_PROCESSING,
+            'payment_bluepayment_currency' => '',
+            'payment_bluepayment_status_pending' => \Opencart\Admin\Controller\Extension\BluePayment\Payment\BluePayment::STATUS_PENDING,
+            'payment_bluepayment_status_failed' => \Opencart\Admin\Controller\Extension\BluePayment\Payment\BluePayment::STATUS_FAILED,
+            'payment_bluepayment_status_success' => \Opencart\Admin\Controller\Extension\BluePayment\Payment\BluePayment::STATUS_PROCESSING,
             self::VERSION_CONFIG_KEY => '1.0.0',
         ]);
 
@@ -49,7 +51,6 @@ class BluePayment extends \Opencart\System\Engine\Model
 
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepayment_gateway`;");
 
-
         $settings_to_delete = [
             'payment_bluepayment_status',
             'payment_bluepayment_test_mode',
@@ -64,30 +65,17 @@ class BluePayment extends \Opencart\System\Engine\Model
         }
     }
 
-    public function checkUpdate()
+    public function checkUpdate(): void
     {
         $this->load->model('setting/setting');
-        $version = $this->model_setting_setting->getSettingValue(self::VERSION_CONFIG_KEY);
-
-        version_compare($version, '1.0.5', '<') === true && $this->update105();
+        $version = $this->model_setting_setting->getValue(self::VERSION_CONFIG_KEY);
 
         if ($version !== self::VERSION) {
-            $this->model_setting_setting->editSettingValue(self::CONFIG_CODE, self::VERSION_CONFIG_KEY, self::VERSION);
+            $this->model_setting_setting->editValue(
+                self::CONFIG_CODE,
+                self::VERSION_CONFIG_KEY,
+                self::VERSION
+            );
         }
     }
-
-    /**
-     * Add VISA Mobile gateway
-     *
-     * @return void
-     */
-    public function update105(): void
-    {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` (`type`, `code`) VALUES ('payment', 'bluepayment_visa');");
-
-        $this->model_setting_setting->editSetting(self::CONFIG_CODE . '_visa', [
-            'payment_bluepayment_visa_status' => 1,
-        ]);
-    }
-
 }

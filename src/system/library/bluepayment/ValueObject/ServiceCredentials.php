@@ -1,6 +1,6 @@
 <?php
 
-namespace BluePayment\ValueObject;
+namespace Opencart\System\Library\BluePayment\ValueObject;
 
 final class ServiceCredentials
 {

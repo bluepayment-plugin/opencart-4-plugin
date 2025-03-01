@@ -1,6 +1,8 @@
 <?php
 
-class BluePaymentGateway extends \Opencart\System\Engine\Model
+namespace Opencart\Admin\Model\Extension\BluePayment\Payment;
+
+class ModelPaymentBluepaymentGateway extends \Opencart\System\Engine\Model
 {
     public function synchronize()
     {

@@ -1,17 +1,17 @@
 <?php
 
-namespace BluePayment\Helper;
+namespace Opencart\System\Library\BluePayment\Helper;
 
-require_once DIR_SYSTEM . '/library/bluemedia-sdk-php/index.php';
+require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index.php';
 
-use Registry;
+use Opencart\System\Engine\Registry;
 use Monolog\Logger as MonologLogger;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Formatter\LineFormatter;
 
 final class Logger
 {
-    private const LOG_NAME = 'Blue_Media';
+    private const LOG_NAME = 'Autopay';
     private const LOG_FILENAME = '/bluepayment.log';
     private const LOG_FILE_PATH = DIR_LOGS . self::LOG_FILENAME;
     private const MAX_LOG_FILES = 30;
@@ -69,7 +69,7 @@ final class Logger
             $this->registry->get('response')
                 ->redirect(
                     $this->registry->get('url')->link(
-                        $this->registry->get('BluepaymentDictionary')->getExtensionPath(),
+                        'extension/bluepayment/payment/bluepayment',
                         'user_token=' . $this->registry->get('session')->data['user_token'],
                         true
                     )
@@ -126,10 +126,9 @@ final class Logger
 
     private function initRegistry(): void
     {
-        $this->registry->get('load')->library('bluepayment/Dictionary/BluepaymentDictionary');
-
-        $this->registry->get('load')->language($this->registry->get('BluepaymentDictionary')->getExtensionPath());
-        $this->registry->get('load')->language('tool/log');
+        $this->registry->get('load')->library('BluePayment/Dictionary/BluepaymentDictionary');
+		$this->registry->get('load')->language('extension/bluepayment/payment/bluepayment');
+		$this->registry->get('load')->language('tool/log');
     }
 
     private function getRequestedFilePath(): string

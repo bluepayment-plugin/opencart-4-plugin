@@ -1,6 +1,6 @@
 <?php
 
-namespace BluePayment\Validator;
+namespace Opencart\System\Library\BluePayment\Validator;
 
 final class AdminFormValidator
 {

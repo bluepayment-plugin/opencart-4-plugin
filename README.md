@@ -1,6 +1,8 @@
 # Instrukcja instalacji oraz obsługi wtyczki „Płatności online Autopay” dla platformy OpenCart
 
-**Moduł przeznaczony jest tylko dla OpenCart w wersji 3. W celu pobrania modułu dla wersji 2.3, przejdź [tutaj.](https://github.com/bluepayment-plugin/opencart-2.3-plugin)**
+**Moduł przeznaczony jest tylko dla OpenCart w wersji 4.
+W celu pobrania modułu dla wersji 3.x, przejdź [tutaj.](https://github.com/bluepayment-plugin/opencart-plugin)
+W celu pobrania modułu dla wersji 2.3, przejdź [tutaj.](https://github.com/bluepayment-plugin/opencart-2.3-plugin)**
 
 ## Podstawowe informacje
 Płatności online Autopay to moduł płatności umożliwiający realizację transakcji bezgotówkowych w sklepie opartym na platformie OpenCart. Jeżeli jeszcze nie masz wtyczki, możesz ją pobrać [tutaj.](https://github.com/bluepayment-plugin/opencart-plugin/raw/master/bm.ocmod.zip)
@@ -15,8 +17,8 @@ Do najważniejszych funkcji modułu zalicza się:
 - przekierowanie na paywall/bramkę Autopay, gdzie są dostępne wszystkie formy płatności
 
 ### Wymagania systemowe
-- OpenCart 3.x
-- Wersja PHP 7.1 lub wyższa
+- OpenCart 4.x
+- Wersja PHP 8.0 lub wyższa
 
 ### Opis zmian
 
@@ -43,7 +45,7 @@ Wersja 1.0.3
 
 Wersja 1.0.2
 - Poprawiliśmy wyświetlanie strony z konfiguracją modułlu w panelu administracyjnym.
-- Dodaliśmy usuwanie białych znaków z ServiceID / SharedKey. 
+- Dodaliśmy usuwanie białych znaków z ServiceID / SharedKey.
 
 Wersja 1.0.1
 - Poprawiliśmy wyliczanie hasha.
@@ -62,7 +64,7 @@ Możesz zainstalować moduł płatności jedną z dwóch metod – automatycznie
 
 ## Aktywacja
 
-1. Przejdź do zakładki **Extensions > Extensions** 
+1. Przejdź do zakładki **Extensions > Extensions**
 2. Z listy rozwijanej wybierz **Payments**
 3. Wyszukaj moduł **Płatności online Autopay**, zainstaluj ją, a następnie przejdź do konfiguracji modułu.
 
@@ -112,22 +114,22 @@ Upewnij się, że w panelach administracyjnych Autopay https://portal.autopay.eu
 
 - Konfiguracja adresu powrotu po płatności
 
-https://domena-sklepu.pl/index.php?route=extension/payment/bluepayment/paymentReturn
+https://domena-sklepu.pl/index.php?route=extension/bluepayment/payment/bluepayment.paymentReturn
 
-- Konfiguracja adresu, na który jest wysyłany ITN 
+- Konfiguracja adresu, na który jest wysyłany ITN
 
-https://domena-sklepu.pl/index.php?route=extension/payment/bluepayment/processItn
+https://domena-sklepu.pl/index.php?route=extension/bluepayment/payment/bluepayment.processItn
 
 
 ## Logi
 
 1. Przejdź do zakładki **Konfiguracja modułu > Logi**.
 
-2. Użyj rozwijanej listy, a znajdziesz tam pliki z podziałem na dni, tworzone według wzoru **bluepayment-YYYY-MM-DD.log** 
+2. Użyj rozwijanej listy, a znajdziesz tam pliki z podziałem na dni, tworzone według wzoru **bluepayment-YYYY-MM-DD.log**
 
-Pliki te zawierają logi błędów, które mogą wystąpić podczas procesu płatności. W plikach dostępne są również informacje dotyczące każdej wykonanej płatności za pomocą wtyczki Płatności online Autopay. 
+Pliki te zawierają logi błędów, które mogą wystąpić podczas procesu płatności. W plikach dostępne są również informacje dotyczące każdej wykonanej płatności za pomocą wtyczki Płatności online Autopay.
 
-Dane te mogą się okazać przydatne przy zgłaszaniu problemów z działaniem wtyczki. 
+Dane te mogą się okazać przydatne przy zgłaszaniu problemów z działaniem wtyczki.
 
 <img width="557" alt="Zakładka z logami - przykładowy widok" src="https://user-images.githubusercontent.com/87177993/126635650-fc7a781a-b239-49f0-a629-3d3f4cd7de6e.png">
 

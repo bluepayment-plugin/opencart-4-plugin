@@ -42,6 +42,9 @@ class Sorter
             'DefaultRegulationAcceptanceState',
             'DefaultRegulationAcceptanceID',
             'DefaultRegulationAcceptanceTime',
+            'PlatformName',
+            'PlatformVersion',
+            'PlatformPluginVersion',
             'Hash',
         ];
 

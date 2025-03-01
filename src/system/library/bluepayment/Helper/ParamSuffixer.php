@@ -1,6 +1,6 @@
 <?php
 
-namespace BluePayment\Helper;
+namespace Opencart\System\Library\BluePayment\Helper;
 
 final class ParamSuffixer
 {

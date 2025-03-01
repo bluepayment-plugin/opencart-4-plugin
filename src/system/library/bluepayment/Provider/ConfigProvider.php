@@ -1,6 +1,6 @@
 <?php
 
-namespace BluePayment\Provider;
+namespace Opencart\System\Library\BluePayment\Provider;
 
 use BlueMedia\OnlinePayments\Gateway;
 

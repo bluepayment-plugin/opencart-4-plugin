@@ -1,6 +1,6 @@
 <?php
 
-namespace BluePayment\Service\Itn\Result;
+namespace Opencart\System\Library\BluePayment\Service\Itn\Result;
 
 abstract class ITNResponseType
 {

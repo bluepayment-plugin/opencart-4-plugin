@@ -1,27 +1,31 @@
 <?php
 
-namespace BluePayment\Builder;
+namespace Opencart\System\Library\BluePayment\Builder;
 
-require_once DIR_SYSTEM . '/library/bluemedia-sdk-php/index.php';
+require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index.php';
 
-use Registry;
+use Opencart\System\Engine\Registry;
 use BlueMedia\OnlinePayments\Model\TransactionStandard;
+use Opencart\System\Library\BluePayment\Helper\ParamSuffixer;
 
 final class TransactionBuilder
 {
     private $registry;
     private $currency;
 
+	private ParamSuffixer $paramSuffixer;
+
     public function __construct(Registry $registry)
     {
         $this->registry = $registry;
-        $this->registry->get('load')->library('bluepayment/Helper/ParamSuffixer');
-        $this->currency = $registry->get('currency');
+		$this->currency = $registry->get('currency');
+
+		$this->paramSuffixer = $this->registry->get('load')->library('BluePayment/Helper/ParamSuffixer');
     }
 
     public function build(array $orderInfo, int $serviceId, array $requestParams = []): TransactionStandard
     {
-        $order_id = $this->registry->get('ParamSuffixer')->addSuffix($orderInfo['order_id']);
+        $order_id = $this->paramSuffixer->addSuffix($orderInfo['order_id']);
 
         $transaction = (new TransactionStandard())->setServiceId($serviceId)
             ->setOrderId($order_id)

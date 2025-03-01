@@ -53,7 +53,7 @@ class TransactionStandard extends TransactionInit
     protected $blikAMKey = '';
 
     /**
-     * Language used in html form with redirect to BlueMedia paywall
+     * Language used in html form with redirect to Autopay paywall
      */
     protected $htmlFormLanguage = 'pl';
 

@@ -6,10 +6,11 @@ green=$(tput setaf 2)
 
 echo "Creating package..."
 
-rm -rf bm.ocmod.zip
+rm -rf bluepayment.ocmod.zip
 
-cd src && zip -r "../bm.ocmod.zip" ./upload/
+cd ./src
+zip -r "../bluepayment.ocmod.zip" ./
 cd ../
 
 echo "======================================================================================================"
-echo "${green}Package ${bold}bm.ocmod.zip${normal}${green} created"
+echo "${green}Package ${bold}bluepayment.ocmod.zip${normal}${green} created"

@@ -1,8 +1,8 @@
 <?php
 
-namespace BluePayment\Service\Itn;
+namespace Opencart\System\Library\BluePayment\Service\Itn;
 
-use bluepayment\Service\Itn\Result\ITNResponseType;
+use Opencart\System\Library\BluePayment\Service\Itn\Result\ITNResponseType;
 
 final class Itn
 {

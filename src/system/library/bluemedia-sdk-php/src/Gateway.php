@@ -5,7 +5,7 @@ namespace BlueMedia\OnlinePayments;
 use BlueMedia\OnlinePayments\Action\ITN;
 use BlueMedia\OnlinePayments\Action\PaywayList\Transformer;
 use BlueMedia\OnlinePayments\Model\ItnIn;
-use BlueMedia\OnlinePayments\Model\PaywayList;
+use BlueMedia\OnlinePayments\Model\GatewayList;
 use BlueMedia\OnlinePayments\Model\TransactionBackground;
 use BlueMedia\OnlinePayments\Model\TransactionInit;
 use BlueMedia\OnlinePayments\Model\TransactionStandard;
@@ -25,14 +25,17 @@ class Gateway
     const MODE_SANDBOX = 'sandbox';
     const MODE_LIVE = 'live';
 
-    const PAYMENT_DOMAIN_SANDBOX = 'pay-accept.bm.pl';
-    const PAYMENT_DOMAIN_LIVE = 'pay.bm.pl';
+    const PAYMENT_DOMAIN_SANDBOX = 'testpay.autopay.eu';
+    const PAYMENT_DOMAIN_LIVE = 'pay.autopay.eu';
 
     const PAYMENT_ACTON_PAYMENT = '/payment';
-    const PAYMENT_ACTON_PAYWAY_LIST = '/paywayList';
+    const PAYMENT_ACTION_GATEWAY_LIST = '/gatewayList/v2';
 
     const GET_MERCHANT_INFO = '/webapi/googlePayMerchantInfo';
     const GET_REGULATIONS = '/webapi/regulationsGet';
+
+    const HEADER = 'BmHeader';
+    const HEADER_VALUE = 'pay-bm';
 
     const STATUS_CONFIRMED = 'CONFIRMED';
     const STATUS_NOT_CONFIRMED = 'NOTCONFIRMED';
@@ -207,6 +210,19 @@ class Gateway
 
         if (preg_match_all(self::PATTERN_GENERAL_ERROR, $this->response, $data)) {
             throw new RuntimeException($this->response);
+        }
+    }
+
+    private function isErrorResponseJson()
+    {
+        $result = json_decode($this->response);
+
+        if (!$result) {
+            throw new RuntimeException($this->response);
+        }
+
+        if ($result->result === 'ERROR') {
+            throw new RuntimeException($result->errorStatus . ' - ' . $result->description);
         }
     }
 
@@ -525,7 +541,7 @@ class Gateway
 
         switch ($action) {
             case self::PAYMENT_ACTON_PAYMENT:
-            case self::PAYMENT_ACTON_PAYWAY_LIST:
+            case self::PAYMENT_ACTION_GATEWAY_LIST:
             case self::GET_MERCHANT_INFO:
             case self::GET_REGULATIONS:
                 break;
@@ -573,28 +589,31 @@ class Gateway
     /**
      * Returns payway list.
      *
-     * @return PaywayList
-     * @throws RuntimeException
+     * @param  string  $currency
+     * @return GatewayList
      * @api
      */
-    final public function doPaywayList()
+    final public function doGatewayList(string $currency): GatewayList
     {
-        $fields         = [
+        $fields = [
             'ServiceID' => self::$serviceId,
             'MessageID' => $this->generateMessageId(),
+            'Currencies' => $currency,
         ];
         $fields['Hash'] = self::generateHash($fields);
 
-        $responseObject = self::$httpClient->post(
-            self::getActionUrl(self::PAYMENT_ACTON_PAYWAY_LIST),
-            [],
+        $responseObject = self::$httpClient->postJson(
+            self::getActionUrl(self::PAYMENT_ACTION_GATEWAY_LIST),
+            [
+                self::HEADER => self::HEADER_VALUE,
+            ],
             $fields
         );
 
         $this->response = (string)$responseObject->getBody();
-        $this->isErrorResponse();
+        $this->isErrorResponseJson();
 
-        $responseParsed = XMLParser::parse($this->response);
+        $responseParsed = json_decode($this->response);
 
         $model = Transformer::toModel($responseParsed);
         $model->validate((int)$fields['ServiceID'], (string)$fields['MessageID']);
