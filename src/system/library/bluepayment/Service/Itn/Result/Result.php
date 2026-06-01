@@ -2,6 +2,7 @@
 
 namespace Opencart\System\Library\BluePayment\Service\Itn\Result;
 
+use Opencart\System\Library\BluePayment\Helper\LibraryLoader;
 use Opencart\System\Library\BluePayment\Provider\ConfigProvider;
 
 require_once 'ITNResponseType.php';
@@ -20,6 +21,6 @@ class Result extends ITNResponseType
         $this->model_checkout_order = $this->registry->get('model_checkout_order');
         $this->language = $this->registry->get('language');
 
-		$this->config = $this->registry->get('load')->library('BluePayment/Provider/ConfigProvider', $this->registry);
-    }
+		$this->config = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Provider/ConfigProvider', $this->registry);
+	}
 }

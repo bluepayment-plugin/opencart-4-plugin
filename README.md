@@ -22,6 +22,9 @@ Do najważniejszych funkcji modułu zalicza się:
 
 ### Opis zmian
 
+Wersja 1.0.9
+- Poprawiliśmy kompatybilność z OpenCart 4.0.x.
+
 Wersja 1.0.8
 - Zmieniliśmy tekst informacji o prowizji w panelu administracyjnym.
 - Zmieniliśmy link do oferty regulaminów w panelu administracyjnym.

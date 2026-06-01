@@ -6,6 +6,7 @@ require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index
 
 use Opencart\System\Engine\Registry;
 use BlueMedia\OnlinePayments\Model\TransactionStandard;
+use Opencart\System\Library\BluePayment\Helper\LibraryLoader;
 use Opencart\System\Library\BluePayment\Helper\ParamSuffixer;
 
 final class TransactionBuilder
@@ -20,8 +21,8 @@ final class TransactionBuilder
         $this->registry = $registry;
 		$this->currency = $registry->get('currency');
 
-		$this->paramSuffixer = $this->registry->get('load')->library('BluePayment/Helper/ParamSuffixer');
-    }
+		$this->paramSuffixer = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Helper/ParamSuffixer');
+	}
 
     public function build(array $orderInfo, int $serviceId, array $requestParams = []): TransactionStandard
     {

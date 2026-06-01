@@ -8,6 +8,7 @@ use BlueMedia\OnlinePayments\Action\ITN\Transformer;
 use Opencart\System\Library\BluePayment\Builder\ItnDataBuilder;
 use Opencart\System\Library\BluePayment\Builder\TransactionBuilder;
 use Opencart\System\Library\BluePayment\Dictionary\BluepaymentDictionary;
+use Opencart\System\Library\BluePayment\Helper\LibraryLoader;
 use Opencart\System\Library\BluePayment\Helper\Logger;
 use Opencart\System\Library\BluePayment\Helper\ParamSuffixer;
 use Opencart\System\Library\BluePayment\Provider\ServiceCredentialsProvider;
@@ -30,10 +31,10 @@ class Bluepayment extends \Opencart\System\Engine\Controller
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluepayment/index.php';
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index.php';
 
-		$this->dictionary = $this->load->library('BluePayment/Dictionary/BluepaymentDictionary', $registry);
-		$this->serviceCredentialsProvider = $this->load->library('BluePayment/Provider/ServiceCredentialsProvider', $registry);
-		$this->logger = $this->load->library('BluePayment/Helper/Logger', $registry);
-		$this->paramSuffixer = $this->load->library('BluePayment/Helper/ParamSuffixer', $registry);
+		$this->dictionary = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Dictionary/BluepaymentDictionary', $registry);
+		$this->serviceCredentialsProvider = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Provider/ServiceCredentialsProvider', $registry);
+		$this->logger = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Helper/Logger', $registry);
+		$this->paramSuffixer = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Helper/ParamSuffixer', $registry);
 
 		$this->load->language('extension/bluepayment/payment/bluepayment');
 		$this->load->model('checkout/order');
@@ -73,7 +74,7 @@ class Bluepayment extends \Opencart\System\Engine\Controller
 	public function processCheckout(): void
 	{
 		/** @var TransactionBuilder $transactionBuilder */
-		$transactionBuilder = $this->load->library('BluePayment/Builder/TransactionBuilder', $this->registry);
+		$transactionBuilder = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Builder/TransactionBuilder', $this->registry);
 
 		$json = [];
 
@@ -170,11 +171,11 @@ class Bluepayment extends \Opencart\System\Engine\Controller
 	public function processItn()
 	{
 		/** @var ItnDataBuilder $itnDataBuilder */
-		$itnDataBuilder = $this->load->library('BluePayment/Builder/ItnDataBuilder', $this->registry);
+		$itnDataBuilder = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Builder/ItnDataBuilder', $this->registry);
 		/** @var Result $result */
-		$result = $this->load->library('BluePayment/Service/Itn/Result/Result', $this->registry);
+		$result = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Result/Result', $this->registry);
 		/** @var Itn $itn */
-		$itn = $this->load->library('BluePayment/Service/Itn/Itn', $this->registry);
+		$itn = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Itn', $this->registry);
 
 		try {
 			$transactionConfirmed = true;
@@ -210,9 +211,9 @@ class Bluepayment extends \Opencart\System\Engine\Controller
 			}
 
 			if ($transactionConfirmed) {
-				$success = $this->load->library('BluePayment/Service/Itn/Result/Success', $this->registry);
-				$failure = $this->load->library('BluePayment/Service/Itn/Result/Failure', $this->registry);
-				$pending = $this->load->library('BluePayment/Service/Itn/Result/Pending', $this->registry);
+				$success = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Result/Success', $this->registry);
+				$failure = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Result/Failure', $this->registry);
+				$pending = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Result/Pending', $this->registry);
 
 				$itn->addResult($failure);
 				$itn->addResult($success);

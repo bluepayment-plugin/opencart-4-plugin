@@ -25,9 +25,9 @@ final class Gateway
         $this->registry = $registry;
         $this->currency = $registry->get('currency');
 
-		$this->credentialsProvider = $this->registry->get('load')->library('BluePayment/Provider/ServiceCredentialsProvider', $this->registry);
-        $this->configProvider = $this->registry->get('load')->library('BluePayment/Provider/ConfigProvider', $registry);
-    }
+		$this->credentialsProvider = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Provider/ServiceCredentialsProvider', $this->registry);
+		$this->configProvider = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Provider/ConfigProvider', $registry);
+	}
 
     public function isVisaEnabled(string $currency): bool
     {

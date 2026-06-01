@@ -6,6 +6,7 @@ require_once __DIR__ . '/Builder/TransactionBuilder.php';
 require_once __DIR__ . '/Dictionary/BluepaymentDictionary.php';
 
 require_once __DIR__ . '/Helper/Gateway.php';
+require_once __DIR__ . '/Helper/LibraryLoader.php';
 require_once __DIR__ . '/Helper/Logger.php';
 require_once __DIR__ . '/Helper/ParamSuffixer.php';
 

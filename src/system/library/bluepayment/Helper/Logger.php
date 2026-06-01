@@ -126,7 +126,7 @@ final class Logger
 
     private function initRegistry(): void
     {
-        $this->registry->get('load')->library('BluePayment/Dictionary/BluepaymentDictionary');
+        LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Dictionary/BluepaymentDictionary');
 		$this->registry->get('load')->language('extension/bluepayment/payment/bluepayment');
 		$this->registry->get('load')->language('tool/log');
     }

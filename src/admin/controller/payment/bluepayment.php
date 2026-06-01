@@ -2,6 +2,7 @@
 
 namespace Opencart\Admin\Controller\Extension\BluePayment\Payment;
 
+use Opencart\System\Library\BluePayment\Helper\LibraryLoader;
 use Psr\Log\LogLevel;
 
 class BluePayment extends \Opencart\System\Engine\Controller
@@ -25,8 +26,8 @@ class BluePayment extends \Opencart\System\Engine\Controller
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluepayment/index.php';
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index.php';
 
-		$this->load->library('BluePayment/Helper/Logger', $registry);
-		$this->load->library('BluePayment/Validator/AdminFormValidator', $registry);
+		LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Helper/Logger', $registry);
+		LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Validator/AdminFormValidator', $registry);
 	}
 
 	public function index()

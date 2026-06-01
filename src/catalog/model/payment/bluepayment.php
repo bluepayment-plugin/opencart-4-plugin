@@ -4,6 +4,7 @@ namespace Opencart\Catalog\Model\Extension\BluePayment\Payment;
 
 use Opencart\System\Library\BluePayment\Dictionary\BluepaymentDictionary;
 use Opencart\System\Library\BluePayment\Helper\Gateway;
+use Opencart\System\Library\BluePayment\Helper\LibraryLoader;
 use Opencart\System\Library\BluePayment\Provider\ServiceCredentialsProvider;
 
 class BluePayment extends \Opencart\System\Engine\Model
@@ -19,9 +20,9 @@ class BluePayment extends \Opencart\System\Engine\Model
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluepayment/index.php';
 		require_once DIR_EXTENSION . 'bluepayment/system/library/bluemedia-sdk-php/index.php';
 
-		$this->credentialsProvider = $this->registry->get('load')->library('BluePayment/Provider/ServiceCredentialsProvider', $this->registry);
-		$this->dictionary = $this->load->library('BluePayment/Dictionary/BluepaymentDictionary', $this->registry);
-		$this->gatewayHelper = $this->load->library('BluePayment/Helper/Gateway', $this->registry);
+		$this->credentialsProvider = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Provider/ServiceCredentialsProvider', $this->registry);
+		$this->dictionary = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Dictionary/BluepaymentDictionary', $this->registry);
+		$this->gatewayHelper = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Helper/Gateway', $this->registry);
 	}
 
     public function getMethods(array $address)
