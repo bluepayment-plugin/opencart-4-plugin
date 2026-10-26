@@ -22,6 +22,11 @@ Do najważniejszych funkcji modułu zalicza się:
 
 ### Opis zmian
 
+Wersja 1.0.10
+- Dodaliśmy weryfikację konfiguracji waluty powiadomienia ITN i odrzucanie pustych kluczy, także zawierających wyłącznie białe znaki.
+- Ograniczyliśmy pobieranie i podgląd do plików logów modułu.
+- Zabezpieczyliśmy podgląd logów przed XSS przy otwieraniu strony i odświeżaniu przez AJAX.
+
 Wersja 1.0.9
 - Poprawiliśmy kompatybilność z OpenCart 4.0.x.
 

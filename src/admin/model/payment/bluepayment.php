@@ -4,7 +4,7 @@ namespace Opencart\Admin\Model\Extension\BluePayment\Payment;
 
 class BluePayment extends \Opencart\System\Engine\Model
 {
-    public const VERSION = '1.0.8';
+    public const VERSION = '1.0.10';
 
     public const CONFIG_CODE = 'payment_bluepayment';
     public const VERSION_CONFIG_KEY = 'payment_bluepayment_version';

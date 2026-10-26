@@ -4,7 +4,7 @@ namespace Opencart\System\Library\BluePayment\Dictionary;
 
 final class BluepaymentDictionary
 {
-    public const EXTENSION_VERSION = '1.0.8';
+    public const EXTENSION_VERSION = '1.0.10';
     private const EXTENSION_NAME = 'bluepayment';
     private const START_TRANSACTION_URI = 'index.php?route=extension/bluepayment/payment/bluepayment.processCheckout';
 

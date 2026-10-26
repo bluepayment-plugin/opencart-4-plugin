@@ -177,10 +177,16 @@ class Bluepayment extends \Opencart\System\Engine\Controller
 		/** @var Itn $itn */
 		$itn = LibraryLoader::loadBluepaymentLibrary($this->registry, 'BluePayment/Service/Itn/Itn', $this->registry);
 
+		$orderId = null;
+
 		try {
 			$transactionConfirmed = true;
 
 			$transaction = Gateway::doItnIn();
+			if ($transaction->getCurrency() === '' || !$this->serviceCredentialsProvider->currencyServiceExists($transaction->getCurrency())) {
+				throw new \InvalidArgumentException('ITN currency is not configured.');
+			}
+
 			$service_credentials = $this->serviceCredentialsProvider->getCurrencyServiceCredentials($transaction->getCurrency());
 
 			$gateway = new Gateway(

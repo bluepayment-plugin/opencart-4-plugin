@@ -31,6 +31,7 @@ $_['currency_settings'] = 'Ustawienia modułu dla walut';
 $_['info_log_loading'] = 'Trwa ładowanie pliku z logami...';
 
 // Error messages
+$_['error_permission'] = 'Uwaga: Nie masz uprawnień do modyfikowania modułu Autopay!';
 $_['log_file_download_error'] = 'Plik z logami nie został znaleziony lub jest pusty.';
 $_['error_empty_status'] = 'Podano nieprawidłowy status. Wybierz opcję Włącz lub Wyłącz.';
 $_['error_empty_test_mode'] = 'Wybierz tryb testowy. Wybierz opcję Tak lub Nie.';

@@ -52,6 +52,10 @@ class BluePayment extends \Opencart\System\Engine\Controller
 
 			$data = $this->library_BluePayment_Validator_AdminFormValidator->validate();
 
+			if (!$this->user->hasPermission('modify', 'extension/bluepayment/payment/bluepayment')) {
+				$data['message_warning'] = $this->language->get('error_permission');
+			}
+
 			if (empty($data)) {
 				$this->model_setting_setting->editSetting('payment_bluepayment', $this->request->post);
 
@@ -74,7 +78,7 @@ class BluePayment extends \Opencart\System\Engine\Controller
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['download'] = $this->url->link(
-			'extension/bluepayment/payment/bluepayment/downloadLog', 'user_token=' . $this->session->data['user_token'], true
+			'extension/bluepayment/payment/bluepayment.downloadLog', 'user_token=' . $this->session->data['user_token'], true
 		);
 
 		if (isset($this->session->data['message_warning'])) {
@@ -101,7 +105,7 @@ class BluePayment extends \Opencart\System\Engine\Controller
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
 		$data['log_files'] = $this->library_BluePayment_Helper_Logger->getFormattedFileList();
 		$data['refresh_log_uri'] = $this->url->link(
-			'extension/bluepayment/payment/bluepayment/refreshLog', 'user_token=' . $this->session->data['user_token'], true
+			'extension/bluepayment/payment/bluepayment.refreshLog', 'user_token=' . $this->session->data['user_token'], true
 		);
 		$data['info_log_loading'] = $this->language->get('info_log_loading');
 

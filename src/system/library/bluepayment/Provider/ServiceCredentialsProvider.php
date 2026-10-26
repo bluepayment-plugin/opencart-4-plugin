@@ -18,23 +18,32 @@ final class ServiceCredentialsProvider
 		$this->registry->get('load')->model('setting/setting');
 	}
 
-	public function currencyServiceExists(): bool
+	public function currencyServiceExists(string $currency = ''): bool
 	{
-		return isset($this->getAllServiceCredentials()[$this->current_currency]);
+		return isset($this->getAllServiceCredentials()[$currency !== '' ? $currency : $this->current_currency]);
 	}
 
 	public function getCurrencyServiceCredentials(string $currency = ''): ServiceCredentials
 	{
 		$service_credentials = $this->getAllServiceCredentials();
 
-		if (!empty($currency)) {
-			$this->current_currency = $currency;
+		$currency = $currency !== '' ? $currency : $this->current_currency;
+		$credentials = $service_credentials[$currency] ?? null;
+
+		if (!is_array($credentials)) {
+			throw new \InvalidArgumentException('Payment service is not configured for this currency.');
 		}
 
-		return new ServiceCredentials(
-			(int) $service_credentials[$this->current_currency]['service_id'],
-			$service_credentials[$this->current_currency]['shared_key']
-		);
+		$serviceId = (int) ($credentials['service_id'] ?? 0);
+		$sharedKey = $credentials['shared_key'] ?? '';
+
+		if ($serviceId <= 0 || !is_string($sharedKey) || trim($sharedKey) === '') {
+			throw new \InvalidArgumentException('Payment service credentials are incomplete.');
+		}
+
+		$this->current_currency = $currency;
+
+		return new ServiceCredentials($serviceId, trim($sharedKey));
 	}
 
 	public function getCurrentCurrency(): string
@@ -46,6 +55,8 @@ final class ServiceCredentialsProvider
 	{
 		$settings = $this->registry->get('model_setting_setting')->getSetting('payment_bluepayment');
 
-		return $settings['payment_bluepayment_currency'] ?? [];
+		$credentials = $settings['payment_bluepayment_currency'] ?? [];
+
+		return is_array($credentials) ? $credentials : [];
 	}
 }

@@ -31,6 +31,7 @@ $_['currency_settings'] = 'Currency settings';
 $_['info_log_loading'] = 'Loading log file...';
 
 // Error messages
+$_['error_permission'] = 'Warning: You do not have permission to modify the Autopay module!';
 $_['log_file_download_error'] = 'Log file not found or file is empty.';
 $_['error_empty_status'] = 'Status is not defined. Use Enabled or Disabled option.';
 $_['error_empty_test_mode'] = 'Select test mode. Use Yes or No option.';
